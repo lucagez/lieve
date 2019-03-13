@@ -1,0 +1,27 @@
+{
+  "name": "lieve",
+  "version": "0.0.1",
+  "description": "Super fast router, lighter than air",
+  "main": "dist/lieve.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "microbundle src/lieve.js --no-sourcemap",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucagez/lieve.git"
+  },
+  "author": "Luca Gesmundo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucagez/lieve/issues"
+  },
+  "homepage": "https://github.com/lucagez/lieve#readme",
+  "devDependencies": {
+    "microbundle": "^0.11.0",
+    "nodemon": "^1.18.10"
+  }
+}
