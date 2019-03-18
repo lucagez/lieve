@@ -1,12 +1,13 @@
 {
   "name": "lieve",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Super fast router, lighter than air",
   "main": "dist/lieve.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "publish": "npm run build && npm publish",
     "dev": "nodemon test/server.test.js",
     "build": "microbundle src/lieve.js --no-sourcemap",
     "build:dev": "microbundle src/lieve.js -w --no-sourcemap",
