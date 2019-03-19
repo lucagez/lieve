@@ -1,30 +1,15 @@
 {
   "name": "lieve",
-  "version": "0.1.1",
-  "description": "Super fast router, lighter than air",
+  "version": "0.0.1",
   "main": "dist/lieve.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "publish": "npm run build && npm publish",
-    "dev": "nodemon test/server.test.js",
-    "build": "microbundle src/lieve.js --no-sourcemap",
-    "build:dev": "microbundle src/lieve.js -w --no-sourcemap",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lucagez/lieve.git"
-  },
-  "author": "Luca Gesmundo",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lucagez/lieve/issues"
-  },
-  "homepage": "https://github.com/lucagez/lieve#readme",
+  "module": "dist/lieve.mjs",
   "devDependencies": {
     "microbundle": "^0.11.0",
     "nodemon": "^1.18.10"
+  },
+  "scripts": {
+    "build": "microbundle src/lieve.mjs -w --no-sourcemap",
+    "build:dev": "microbundle src/lieve.mjs -w",
+    "dev": "npm run build:dev & nodemon test/server.test.js"
   }
 }
