@@ -1,56 +1,63 @@
-import { _body, _cookie } from './plugins';
-import { list } from './utils';
-import decor from './decor';
+import { _send, _next, _list } from './utils';
 
-class Lieve {
+export class Lieve {
   constructor(routes) {
     this.routes = routes;
-    this.list = list(routes);
-    this.index = 0;
+    // before/after every request
+    this.before = routes.before || [];
+    this.after = routes.after || [];
+    this.list = _list(routes);
+    this.matchPar = new RegExp(/[^\/]+$/);
+    this.matchUrl = new RegExp(/\/$|\?(.*)/);
 
     this.find = this.find.bind(this);
     this.router = this.router.bind(this);
   };
 
-
   find(url) {
-    const params = [];
+    // Super-fast mode finds only last :par
+    const use = url.replace(this.matchUrl, '');
+    const par = use.match(this.matchPar)[0];
+    const path = this.list.indexOf(par) > -1
+      ? use
+      : use.replace(par, ':par');
 
-    const pieceOrParam = e => this.list.indexOf(e) > -1
-      ? e
-      : (() => {
-        params.push(e);
-        return ':par';
-      })();
+    // Using the following algo you can find multiple params inside an url
+    // NOTE: the following only works if `this.list` is an array => modify `_list` function
+    // const path = '/' + url
+    //   .replace(/\/$/g, '')
+    //   .split('/').slice(1)
+    //   .map(e => this.list.indexOf(e) > -1
+    //     ? e
+    //     : (() => {
+    //       par.push(e);
+    //       return ':par';
+    //     })())
+    //   .join('/');
 
-    const path = '/' + url
-      .replace(/\/$/g, '')
-      .split('/').slice(1)
-      .map(pieceOrParam)
-      .join('/');
-
-    return { path, params };
+    return { path, par };
   };
 
   router(req, res) {
-    const { url, method } = req;
-    decor(req, res);
+    res.send = _send;
+
     try {
-      // before/after every request
-      const { before = [], after = [] } = this.routes;
-      const { path, params } = this.find(url);
+      const { url, method } = req;
+      const { path, par } = this.find(url);
 
       const route = this.routes[path] || {};
-      // pre/post route handler
-      const { pre = [], post = [] } = route;
-      const handler = route[method];
-      if (typeof handler !== 'function') throw new Error('undefined endpoint');
-
-      const queue = [...before, ...pre, handler, ...post, ...after];
       
-      req.set('params', params);
-      req.set('queue', queue);
-      req.set('index', 0);
+      // before/after route handler
+      const { before = [], after = [] } = route;
+      const handler = route[method];
+      if (typeof handler !== 'function') throw new Error('undefined handler');
+
+      const queue = [...this.before, ...before, handler, ...after, ...this.after];
+
+      req.par = par;
+      req.queue = queue;
+      req.index = 0;
+      req.next = _next.bind(req);
 
       queue[0](req, res);
     } catch (err) {
@@ -66,8 +73,4 @@ class Lieve {
   };
 };
 
-export {
-  Lieve,
-  _body,
-  _cookie,
-};
+export { _bodyParser, _cookieParser, _queryParser, _set } from './utils';
