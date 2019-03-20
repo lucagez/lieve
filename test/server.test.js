@@ -1,17 +1,17 @@
 const http = require('http');
 const fs = require('fs');
 // const { Lieve } = require('../src/lieve.mjs');
-const { Lieve, _body, _cookie, _send, _queryParser } = require('../dist/lieve');
+const { Lieve } = require('../dist/lieve');
 
-const func = (req, res) => {
-  const { next } = req;
-  console.log('ciao');
+// const func = (req, res) => {
+//   const { next } = req;
+//   console.log('ciao');
 
 
-  next()(req, res);
+//   next()(req, res);
 
-  // console.log(req.index);
-};
+//   // console.log(req.index);
+// };
 
 const { router } = new Lieve({
   '/users': {
@@ -23,10 +23,7 @@ const { router } = new Lieve({
     // ],
     'GET': ( req, res ) => {
       // console.log('skere');
-      res.send({
-        type: 'application/json',
-        content: JSON.stringify({ hello: 'world' }),
-      });
+      res.send(JSON.stringify({ hello: 'world' }), 'application/json');
       // res.setHeader('Content-Type', 'application/json');
       // res.end(JSON.stringify({ hello: 'world' }));
     },

@@ -41,7 +41,6 @@ const _queryParser = (req, delimiter = '&') => {
     const [prop, value] = e.split('=');
     query[prop] = value;
   });
-
   return query;
 }; 
 
@@ -61,7 +60,7 @@ const _set = (req, prop, value, writable = false) => {
   });
 };
 
-function _send({ content, type = 'text/plain', status = 200 }) {
+function _send(content, type = 'text/plain', status = 200) {
   this.writeHead(status, { 'Content-Type': type });
   this.end(content);
 };
@@ -70,7 +69,6 @@ function _next() {
   this.index += 1;
   return this.queue[this.index];
 };
-
 
 export {
   _bodyParser,

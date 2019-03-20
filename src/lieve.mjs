@@ -40,36 +40,30 @@ export class Lieve {
 
   router(req, res) {
     res.send = _send;
+    const { url, method } = req;
+    const { path, par } = this.find(url);
 
-    try {
-      const { url, method } = req;
-      const { path, par } = this.find(url);
-
-      const route = this.routes[path] || {};
-      
-      // before/after route handler
-      const { before = [], after = [] } = route;
-      const handler = route[method];
-      if (typeof handler !== 'function') throw new Error('undefined handler');
-
-      const queue = [...this.before, ...before, handler, ...after, ...this.after];
-
-      req.par = par;
-      req.queue = queue;
-      req.index = 0;
-      req.next = _next.bind(req);
-
-      queue[0](req, res);
-    } catch (err) {
-      res.send({
-        type: 'application/json',
-        status: 404,
-        content: JSON.stringify({
+    const route = this.routes[path] || {};
+    
+    // before/after route handler
+    const { before = [], after = [] } = route;
+    const handler = route[method];
+    if (!handler) {
+      res.send(JSON.stringify({
           error: 'Not Found',
           status: 404,
-        }),
-      });
-    }
+        }), 'application/json', 404);
+      return;
+    };
+
+    const queue = [...this.before, ...before, handler, ...after, ...this.after];
+
+    req.par = par;
+    req.queue = queue;
+    req.index = 0;
+    req.next = _next.bind(req);
+
+    queue[0](req, res);
   };
 };
 
