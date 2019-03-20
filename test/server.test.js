@@ -1,5 +1,6 @@
 const http = require('http');
-// const { Lieve } = require('../src/lieve');
+const fs = require('fs');
+// const { Lieve } = require('../src/lieve.mjs');
 const { Lieve, _body, _cookie } = require('../dist/lieve');
 
 // const middle = (req, res) => {
@@ -13,15 +14,35 @@ const { Lieve, _body, _cookie } = require('../dist/lieve');
 
 const { router } = new Lieve({
   '/users': {
-    'GET': (req, res) => {
+    'GET': ( req, res ) => {
+      const { header, setHeader } = res;
+      
+      // fs.writeFileSync('./res_pure.json', JSON.stringify(res));
+      console.log('\n######################\n');
+      console.log('\n######################\n');
+      console.log('\n######################\n');
+      console.log('\n######################\n');
+      console.log('\n######################\n');
+
+      console.log(res);
+
+      res.setHeader('Content-Type', 'application/json; wsalllakattmagggllli');
+
+      console.log('\n######################\n');
+      console.log('\n######################\n');
+      console.log('\n######################\n');
+      console.log('\n######################\n');
+      console.log('\n######################\n');
+
+      console.log(res);
+      // fs.writeFileSync('./res_head.json', JSON.stringify(res));
+
+      // res.send({
+      //   type: 'application/json',
+      //   content: JSON.stringify({ hello: 'world' }),
+      // });
       // res.setHeader('Content-Type', 'application/json');
       // res.end(JSON.stringify({ hello: 'world' }));
-      const { url } = req;
-      console.log(url);
-      res.send({
-        type: 'application/json',
-        content: JSON.stringify({ hello: 'world' }),
-      });
     },
   },
 });

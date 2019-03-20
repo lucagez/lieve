@@ -41,14 +41,11 @@ class Lieve {
       const { path, params } = this.find(url);
 
       const route = this.routes[path] || {};
-      
       // pre/post route handler
       const { pre = [], post = [] } = route;
       const handler = route[method];
-      
-      
       if (typeof handler !== 'function') throw new Error('undefined endpoint');
-      
+
       const queue = [...before, ...pre, handler, ...post, ...after];
       
       req.set('params', params);
