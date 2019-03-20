@@ -7,6 +7,14 @@ const { Lieve } = require('../dist/lieve');
 //   const { next } = req;
 //   console.log('ciao');
 
+// const stringify = fastJson({
+//   type: 'object',
+//   properties: {
+//     hello: {
+//       type: 'string'
+//     },
+//   },
+// });
 
 //   next()(req, res);
 
@@ -14,7 +22,7 @@ const { Lieve } = require('../dist/lieve');
 // };
 
 const { router } = new Lieve({
-  '/users': {
+  '/products': {
     // 'before': [
     //   func,
     // ],

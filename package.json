@@ -8,8 +8,9 @@
     "nodemon": "^1.18.10"
   },
   "scripts": {
-    "build": "microbundle src/lieve.mjs -w --no-sourcemap",
+    "build": "microbundle src/lieve.mjs --no-sourcemap",
     "build:dev": "microbundle src/lieve.mjs -w",
     "dev": "npm run build:dev & nodemon test/server.test.js"
-  }
+  },
+  "dependencies": {}
 }

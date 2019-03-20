@@ -16,7 +16,9 @@ export class Lieve {
 
   find(url) {
     // Super-fast mode finds only last :par
+    if (url === '/') return { path: url, par: undefined };
     const use = url.replace(this.matchUrl, '');
+
     const par = use.match(this.matchPar)[0];
     const path = this.list.indexOf(par) > -1
       ? use
