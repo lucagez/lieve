@@ -20,6 +20,7 @@ const { Lieve } = require('../dist/lieve');
 
 //   // console.log(req.index);
 // };
+const msg = JSON.stringify({ hello: 'world' });
 
 const { router } = new Lieve({
   '/products': {
@@ -29,7 +30,7 @@ const { router } = new Lieve({
     // 'after': [
     //   func,
     // ],
-    'GET': ( req, res ) => {
+    'GET': (req, res) => {
       // console.log('skere');
       res.send(JSON.stringify({ hello: 'world' }), 'application/json');
       // res.setHeader('Content-Type', 'application/json');
