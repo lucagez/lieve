@@ -44,16 +44,42 @@ function router(req, res) {
   queue[0](req, res);
 };
 
+function _queues(routes) {
+  const queues = {};
+  Object.keys(routes).forEach(endpoint => {
+    if (endpoint !== 'beforeAll' && endpoint !== 'afterAll') {
+      queues[endpoint] = {};
+
+      Object.keys(routes[endpoint]).forEach(method => {
+        if (method !== 'before' && method !== 'after') {
+          const { beforeAll = [], afterAll = [] } = routes;
+          const { before = [], after = [] } = routes[endpoint];
+          const handler = routes[endpoint][method];
+          const queue = [...beforeAll, ...before, handler, ...after, ...afterAll];
+
+          queues[endpoint][method] = queue;
+        }
+      });
+    }
+  });
+
+  return queues;
+}
+
 export class Lieve {
   constructor(routes) {
     this.routes = routes;
     // before/after every request
     this.before = routes.before || [];
     this.after = routes.after || [];
+    
+    this.queues = _queues(routes);
+    console.log(this.queues);
+
     this.list = _list(routes);
     this.matchPar = new RegExp(/[^\/]+$/);
     this.matchUrl = new RegExp(/\/$|\?(.*)/);
-    
+
     this.find = find.bind(this);
     this.router = router.bind(this);
   };
