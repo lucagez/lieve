@@ -42,7 +42,7 @@ const _query = (req, delimiter = '&') => {
     query[prop] = value;
   });
   return query;
-}; 
+};
 
 const _list = (routes) => {
   const pieces = Object.keys(routes)
@@ -61,13 +61,17 @@ const _set = (req, prop, value, writable = false) => {
 };
 
 function _send(content, type = 'text/plain', status = 200) {
+  // use this for `turbo-http`
+  // this.statusCode = status;
+  // this.setHeader('Content-Type', type);
+
   this.writeHead(status, { 'Content-Type': type });
   this.end(content, false, false);
 };
 
-function _next() {
+function _next(req, res) {
   this.index += 1;
-  return this.queue[this.index];
+  return this.queue[this.index](req, res);
 };
 
 export {
