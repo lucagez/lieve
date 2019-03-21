@@ -23,7 +23,7 @@ const { Lieve } = require('../dist/lieve');
 const msg = JSON.stringify({ hello: 'world' });
 
 const { router } = new Lieve({
-  '/products': {
+  '/users': {
     // 'before': [
     //   func,
     // ],

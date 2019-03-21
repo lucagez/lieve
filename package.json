@@ -12,7 +12,5 @@
     "build:dev": "microbundle src/lieve.mjs -w",
     "dev": "npm run build:dev & nodemon test/server.test.js"
   },
-  "dependencies": {
-    "flatstr": "^1.0.9"
-  }
+  "dependencies": {}
 }

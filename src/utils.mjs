@@ -1,4 +1,4 @@
-const _bodyParser = (req, type) => {
+const _body = (req, type) => {
   return new Promise(resolve => {
     const chunks = [];
     req.on('data', chunk => chunks.push(chunk))
@@ -23,7 +23,7 @@ const _bodyParser = (req, type) => {
   });
 };
 
-const _cookieParser = req => {
+const _cookie = req => {
   const { cookie } = req.headers;
   if (!cookie) return {};
   const basket = {};
@@ -34,7 +34,7 @@ const _cookieParser = req => {
   return basket;
 };
 
-const _queryParser = (req, delimiter = '&') => {
+const _query = (req, delimiter = '&') => {
   const { url } = req;
   const query = {};
   url.match(/[^?]+$/)[0].split(delimiter).map(e => {
@@ -62,7 +62,7 @@ const _set = (req, prop, value, writable = false) => {
 
 function _send(content, type = 'text/plain', status = 200) {
   this.writeHead(status, { 'Content-Type': type });
-  this.end(content);
+  this.end(content, false, false);
 };
 
 function _next() {
@@ -71,9 +71,9 @@ function _next() {
 };
 
 export {
-  _bodyParser,
-  _cookieParser,
-  _queryParser,
+  _body,
+  _cookie,
+  _query,
   _send,
   _set,
   _next,
