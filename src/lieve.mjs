@@ -9,7 +9,6 @@ export class Lieve {
     this.queues = _queues(routes);
     this.list = _list(routes);
 
-    console.log(this.queues);
     this.matchUrl = new RegExp(/\/$|\?(.*)/);
 
     // Updated regex => avoid matching eg: `v1` as param.
@@ -19,8 +18,13 @@ export class Lieve {
 
     this.find = _find.bind(this);
     this.router = router.bind(this);
-  };
-};
+  }
+}
 
-export { _body, _cookie, _query, _set, _express } from './utils';
-
+export {
+  _body,
+  _cookie,
+  _query,
+  _set,
+  _express,
+} from './utils';

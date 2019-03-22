@@ -1,8 +1,8 @@
 const toArr = obj => Object.keys(obj).map(e => obj[e]);
 
-const _single = obj => {
+function _single(obj) {
   const queues = {};
-  Object.keys(obj).forEach(endpoint => {
+  Object.keys(obj).forEach((endpoint) => {
     if (endpoint !== 'use' && endpoint !== 'extend') {
       const { extend } = obj;
       const usedEndpoint = extend ? extend + endpoint.replace(/\/$/, '') : endpoint;
@@ -10,7 +10,7 @@ const _single = obj => {
       queues[usedEndpoint] = {};
 
       const route = obj[endpoint];
-      Object.keys(route).forEach(method => {
+      Object.keys(route).forEach((method) => {
         if (method !== 'use') {
           const useAll = obj.use || {};
           const afterAll = obj.after || {};
@@ -22,7 +22,7 @@ const _single = obj => {
           const arrAfterRoute = toArr(afterRoute);
 
           const current = route[method];
-          const handler = typeof current === 'function'
+          const handlerQueue = typeof current === 'function'
             ? current
             : (() => {
               const { handler } = current;
@@ -34,7 +34,13 @@ const _single = obj => {
               return [...arrUseHandler, ...handler, ...arrAfterHandler];
             })();
 
-          const queue = [...arrUseAll, ...arrUseRoute, handler, ...arrAfterRoute, ...arrAfterAll].flat();
+          const queue = [
+            ...arrUseAll,
+            ...arrUseRoute,
+            handlerQueue,
+            ...arrAfterRoute,
+            ...arrAfterAll,
+          ].flat();
           queues[usedEndpoint][method] = queue;
         }
       });
@@ -47,19 +53,19 @@ const _single = obj => {
 export default function _queues(routes) {
   const extended = {};
   const filtered = {};
-  Object.keys(routes).forEach(e => {
-    if (routes[e].hasOwnProperty('extend')) {
-      extended[e] = routes[e];
+  Object.keys(routes).forEach((route) => {
+    if (routes[route].hasOwnProperty('extend')) {
+      extended[route] = routes[route];
     } else {
-      filtered[e] = routes[e];
+      filtered[route] = routes[route];
     }
   });
 
   let merged = {};
-  Object.keys(extended).forEach(e => {
+  Object.keys(extended).forEach((ext) => {
     merged = {
       ...merged,
-      ..._single(extended[e]),
+      ..._single(extended[ext]),
     };
   });
 
@@ -67,5 +73,4 @@ export default function _queues(routes) {
     ...merged,
     ..._single(filtered),
   };
-};
-
+}

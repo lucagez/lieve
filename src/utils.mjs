@@ -1,13 +1,13 @@
-const _body = (req, type) => {
-  return new Promise(resolve => {
+function _body(req, type) {
+  return new Promise((resolve) => {
     const chunks = [];
-    req.on('data', chunk => chunks.push(chunk))
+    req.on('data', chunk => chunks.push(chunk));
     req.on('end', () => {
       const body = Buffer.concat(chunks).toString();
       switch (type) {
         case 'x-www-form-urlencoded':
           const parsed = {};
-          body.split('&').map(e => {
+          body.split('&').forEach((e) => {
             const [prop, value] = e.split('=');
             parsed[prop] = value;
           });
@@ -21,44 +21,45 @@ const _body = (req, type) => {
       }
     });
   });
-};
+}
 
-const _cookie = req => {
+function _cookie(req) {
   const { cookie } = req.headers;
   if (!cookie) return {};
   const basket = {};
-  cookie.split(';').forEach(e => {
-    const [prop, value] = e.split('=').map(e => e.trim());
+  cookie.split(';').forEach((e) => {
+    const [prop, value] = e.split('=').map(f => f.trim());
     basket[prop] = value;
   });
   return basket;
-};
+}
 
-const _query = (req, delimiter = '&') => {
+function _query(req, delimiter = '&') {
   const { url } = req;
   const query = {};
-  url.match(/[^?]+$/)[0].split(delimiter).map(e => {
+  url.match(/[^?]+$/)[0].split(delimiter).forEach((e) => {
     const [prop, value] = e.split('=');
     query[prop] = value;
   });
   return query;
-};
+}
 
-const _list = (routes) => {
+function _list(routes) {
   const pieces = Object.keys(routes)
     .map(e => e.split('/').slice(1))
     .flat()
     .filter(e => e !== ':par');
 
-  return Array.from(new Set(pieces))//.join();
-};
+  // `.join()` => if using regex test in routes
+  return Array.from(new Set(pieces));
+}
 
-const _set = (req, prop, value, writable = false) => {
+function _set(req, prop, value, writable = false) {
   Object.defineProperty(req, prop, {
     value,
     writable,
   });
-};
+}
 
 function _send(content, type = 'text/plain', status = 200) {
   // use this for `turbo-http`
@@ -67,25 +68,24 @@ function _send(content, type = 'text/plain', status = 200) {
 
   // use this for core `http`
   this.writeHead(status, { 'Content-Type': type });
-  
   this.end(content, false, false);
-};
+}
 
 function _next(req, res) {
   this.index += 1;
   return this.queue[this.index](req, res);
-};
+}
 
 function _dummy(err) {
   if (err) throw new Error(err);
-  return;
-};
+  return 0;
+}
 
 function _express(req, res, middleware, args = []) {
   const { next } = req;
   middleware(...args)(req, res, _dummy);
   next(req, res);
-};
+}
 
 export {
   _body,
@@ -97,4 +97,3 @@ export {
   _list,
   _express,
 };
-
