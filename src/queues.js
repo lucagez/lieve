@@ -1,19 +1,23 @@
 const toArr = obj => Object.keys(obj).map(e => obj[e]);
 
-export default function _queues(routes) {
+const _single = obj => {
   const queues = {};
-  Object.keys(routes).forEach(endpoint => {
-    if (endpoint !== 'use') {
-      queues[endpoint] = {};
+  Object.keys(obj).forEach(endpoint => {
+    if (endpoint !== 'use' && endpoint !== 'extend') {
+      const { extend } = obj;
+      const usedEndpoint = extend ? extend + endpoint.replace(/\/$/, '') : endpoint;
 
-      Object.keys(routes[endpoint]).forEach(method => {
+      queues[usedEndpoint] = {};
+
+      const route = obj[endpoint];
+      Object.keys(route).forEach(method => {
         if (method !== 'use') {
-          const useAll = routes.use || {};
-          const useRoute = routes[endpoint].use || {};
+          const useAll = obj.use || {};
+          const useRoute = route.use || {};
           const arrUseAll = toArr(useAll);
           const arrUseRoute = toArr(useRoute);
 
-          const current = routes[endpoint][method];
+          const current = route[method];
           const handler = typeof current === 'function'
             ? current
             : (() => {
@@ -24,12 +28,37 @@ export default function _queues(routes) {
             })();
 
           const queue = [...arrUseAll, ...arrUseRoute, handler].flat();
-          queues[endpoint][method] = queue;
+          queues[usedEndpoint][method] = queue;
         }
       });
     }
   });
 
   return queues;
+}
+
+export default function _queues(routes) {
+  const extended = {};
+  const filtered = {};
+  Object.keys(routes).forEach(e => {
+    if (routes[e].hasOwnProperty('extend')) {
+      extended[e] = routes[e];
+    } else {
+      filtered[e] = routes[e];
+    }
+  });
+
+  let merged = {};
+  Object.keys(extended).forEach(e => {
+    merged = {
+      ...merged,
+      ..._single(extended[e]),
+    };
+  });
+
+  return {
+    ...merged,
+    ..._single(filtered),
+  };
 };
 
