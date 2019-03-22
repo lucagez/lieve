@@ -22,3 +22,4 @@ export default function router(req, res) {
     }), 'application/json', 404);
   };
 };
+
