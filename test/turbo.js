@@ -6,6 +6,7 @@ const { Lieve, _express } = require('../dist/lieve');
 const middle = (req, res) => {
   const { next } = req;
   console.log('middle');
+  throw new Error('middle');
   next(req, res);
 };
 
