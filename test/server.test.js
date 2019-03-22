@@ -2,7 +2,7 @@ const http = require('http');
 
 
 // ADD CORS DECORATOR =>
-// cors modify res headers => then invoke Lieve `next`
+// cors modify res headers => then invoke Lieve          `next`
 const cors = require('cors');
 // const http = require('turbo-http');
 // const http = require('mitol');
@@ -28,32 +28,48 @@ const func = (req, res) => {
   // console.log(req.index);
 };
 
-const last = () => '(:'
+const last = (req, res) => {
+  const { next } = req;
+  console.log('last');
+  next(req, res);
+};
+
+const megalast = (req, res) => {
+  console.log('megalast');
+  res.end('lol');
+};
+
 const msg = JSON.stringify({ hello: 'world' });
 
 const { router } = new Lieve({
-  // 'beforeAll': [
-  //   func,
-  //   func,
-  //   func,
-  //   func
-  // ],
-  '/': {
-    // 'before': [
-    //   func,
-    // ],
-    // 'after': [
-    //   func,
-    //   func,
-    //   func,
-    //   last
-    // ],
+  'use': {
+    handle: func,
+  },
+  '/users': {
+    use: {
+      handle: func,
+    },
     'GET': (req, res) => {
+      // const { params } = req;
+      // const [user, lol] = params;
       res.send(JSON.stringify({ hello: 'world' }), 'application/json');
       // res.setHeader('Content-Type', 'application/json');
       // res.end(JSON.stringify({ hello: 'world' }));
     },
   },
+  '/lol': {
+    'use': {
+      lol: func,
+      handle: func,
+    },
+    'POST': megalast,
+    'GET': {
+      'use': {
+        'skere': last,
+      },
+      handler: megalast,
+    }
+  }
   // '/users/:par': {
   //   'GET': (req, res) => res.end('hi (:'),
   //   'POST': (req, res) => res.end('hi (:'),

@@ -2,14 +2,14 @@ import { _send, _next, _list } from './utils';
 
 export default function router(req, res) {
   const { url, method } = req;
-  const { path, par } = this.find(url);
+  const { path, params } = this.find(url);
 
   res['send'] = _send;
   
   const endpoint = this.queues[path];
   if ((endpoint || {}).hasOwnProperty(method)) {
     const queue = endpoint[method];
-    req['par'] = par;
+    req['params'] = params;
     req['queue'] = queue;
     req['index'] = 0;
     req['next'] = _next.bind(req);

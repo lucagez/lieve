@@ -9,8 +9,8 @@ export class Lieve {
     this.queues = _queues(routes);
     this.list = _list(routes);
 
-    this.matchPar = new RegExp(/[^\/]+$/);
     this.matchUrl = new RegExp(/\/$|\?(.*)/);
+    this.matchParams = new RegExp(/[0-9]+[^\/]?/g);
 
     this.find = _find.bind(this);
     this.router = router.bind(this);

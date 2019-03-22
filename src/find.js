@@ -1,15 +1,16 @@
 export default function _find(url) {
+  const params = [];
   if (url === '/') return {
     path: url,
-    par: undefined,
+    params,
   };
 
   const use = url.replace(this.matchUrl, '');
-  par = use.match(this.matchPar)[0];
-  path = this.list.indexOf(par) > -1
-    ? use
-    : use.replace(par, ':par');
+  const path = use.replace(this.matchParams, param => {
+    params.push(param);
+    return ':par';
+  });
 
-  return { path, par };
+  return { path, params };
 };
 
