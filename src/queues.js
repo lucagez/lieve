@@ -13,9 +13,13 @@ const _single = obj => {
       Object.keys(route).forEach(method => {
         if (method !== 'use') {
           const useAll = obj.use || {};
+          const afterAll = obj.after || {};
           const useRoute = route.use || {};
+          const afterRoute = route.after || {};
           const arrUseAll = toArr(useAll);
+          const arrAfterAll = toArr(afterAll);
           const arrUseRoute = toArr(useRoute);
+          const arrAfterRoute = toArr(afterRoute);
 
           const current = route[method];
           const handler = typeof current === 'function'
@@ -23,11 +27,14 @@ const _single = obj => {
             : (() => {
               const { handler } = current;
               const useHandler = current.use || {};
+              const afterHandler = current.after || {};
+
               const arrUseHandler = toArr(useHandler);
-              return [...arrUseHandler, ...handler];
+              const arrAfterHandler = toArr(afterHandler);
+              return [...arrUseHandler, ...handler, ...arrAfterHandler];
             })();
 
-          const queue = [...arrUseAll, ...arrUseRoute, handler].flat();
+          const queue = [...arrUseAll, ...arrUseRoute, handler, ...arrAfterRoute, ...arrAfterAll].flat();
           queues[usedEndpoint][method] = queue;
         }
       });

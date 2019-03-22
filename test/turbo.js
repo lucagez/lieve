@@ -6,7 +6,7 @@ const { Lieve, _express } = require('../dist/lieve');
 const middle = (req, res) => {
   const { next } = req;
   console.log('middle');
-  throw new Error('middle');
+  // throw new Error('middle');
   next(req, res);
 };
 
@@ -14,6 +14,10 @@ const last = (req, res) => {
   const { params } = req;
   // console.log(params);
   res.send(JSON.stringify({ hello: 'world' }), 'application/json');
+};
+
+const presaB = () => {
+  console.log('presa bbbbbbb');
 };
 
 const lol = {
@@ -65,7 +69,10 @@ const lollo = {
         'lol1': middle,
         'lol2': middle,
       },
-      'handler': last
+      'handler': middle,
+      'after': {
+        'presa': presaB,
+      }
     },
   }
 };
@@ -75,11 +82,15 @@ const { router } = new Lieve({
     'use': {
       // 'cors': (req, res) => _express(req, res, cors),
     },
+    'after': {
+      'presab': presaB,
+    },
     'GET': (req, res) => {
-      const { params } = req;
+      const { params, next } = req;
       console.log(params);
       // const [user, lol] = params;
       res.send(JSON.stringify({ hello: 'world' }), 'application/json');
+      next(req);
     },
   },
   '/users': lol,
