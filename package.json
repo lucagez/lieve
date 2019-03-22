@@ -10,7 +10,7 @@
   "scripts": {
     "build": "microbundle src/lieve.mjs --no-sourcemap",
     "build:dev": "microbundle src/lieve.mjs -w",
-    "dev": "npm run build:dev & nodemon test/server.test.js"
+    "dev": "npm run build:dev & nodemon test/compat.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -17,5 +17,5 @@ export class Lieve {
   };
 };
 
-export { _body, _cookie, _query, _set } from './utils';
+export { _body, _cookie, _query, _set, _express } from './utils';
 

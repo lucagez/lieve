@@ -74,6 +74,17 @@ function _next(req, res) {
   return this.queue[this.index](req, res);
 };
 
+function _dummy(err) {
+  if (err) throw new Error(err);
+  return;
+};
+
+function _express(req, res, middleware) {
+  const { next } = req;
+  middleware()(req, res, _dummy);
+  next(req, res);
+};
+
 export {
   _body,
   _cookie,
@@ -82,4 +93,5 @@ export {
   _set,
   _next,
   _list,
+  _express,
 };

@@ -30,6 +30,5 @@ export default function _queues(routes) {
     }
   });
 
-  console.log(queues);
   return queues;
 };
