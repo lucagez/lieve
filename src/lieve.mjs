@@ -10,7 +10,11 @@ export class Lieve {
     this.list = _list(routes);
 
     this.matchUrl = new RegExp(/\/$|\?(.*)/);
-    this.matchParams = new RegExp(/[0-9]+[^\/]?/g);
+
+    // Updated regex => avoid matching eg: `v1` as param.
+    // Matches only numeric params. Both: `/xxx/` and `/xxx`
+    this.matchParams = new RegExp(/(?<=\/)\d+/g);
+    // this.matchParams = new RegExp(/[0-9]+[^\/]?/g);
 
     this.find = _find.bind(this);
     this.router = router.bind(this);

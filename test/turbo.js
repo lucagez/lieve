@@ -42,18 +42,47 @@ const lol = {
   }
 };
 
+const lollo = {
+  'extend': '/walla',
+  '/': {
+    'GET': last,
+  },
+  '/id': {
+    'GET': last,
+  },
+  '/id/:par': {
+    'GET': last,
+  },
+  '/lol': {
+    'use': {
+      'lol': middle
+    },
+    'GET': last,
+    'POST': {
+      'use': {
+        'cors': (req, res) => _express(req, res, cors),
+        'lol1': middle,
+        'lol2': middle,
+      },
+      'handler': last
+    },
+  }
+};
+
 const { router } = new Lieve({
   '/': {
     'use': {
       // 'cors': (req, res) => _express(req, res, cors),
     },
     'GET': (req, res) => {
-      // const { params } = req;
+      const { params } = req;
+      console.log(params);
       // const [user, lol] = params;
       res.send(JSON.stringify({ hello: 'world' }), 'application/json');
     },
   },
-  '/users': lol
+  '/users': lol,
+  '/walla': lollo,
 });
 
 const server = http.createServer();

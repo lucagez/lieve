@@ -1,6 +1,6 @@
 {
   "name": "lieve",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "main": "dist/lieve.js",
   "module": "dist/lieve.mjs",
   "devDependencies": {

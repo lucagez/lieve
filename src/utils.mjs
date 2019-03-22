@@ -62,11 +62,11 @@ const _set = (req, prop, value, writable = false) => {
 
 function _send(content, type = 'text/plain', status = 200) {
   // use this for `turbo-http`
-  this.statusCode = status;
-  this.setHeader('Content-Type', type);
+  // this.statusCode = status;
+  // this.setHeader('Content-Type', type);
 
   // use this for core `http`
-  // this.writeHead(status, { 'Content-Type': type });
+  this.writeHead(status, { 'Content-Type': type });
   
   this.end(content, false, false);
 };
