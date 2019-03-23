@@ -16,6 +16,13 @@ function _single(obj) {
           const afterAll = obj.after || {};
           const useRoute = route.use || {};
           const afterRoute = route.after || {};
+
+          // TESTING:
+          const useTopLevel = obj.useTopLevel || {};
+          const afterTopLevel = obj.afterTopLevel || {};
+          const arrUseTopLevel = toArr(useTopLevel);
+          const arrAfterTopLevel = toArr(afterTopLevel);
+
           const arrUseAll = toArr(useAll);
           const arrAfterAll = toArr(afterAll);
           const arrUseRoute = toArr(useRoute);
@@ -34,12 +41,16 @@ function _single(obj) {
               return [...arrUseHandler, ...handler, ...arrAfterHandler];
             })();
 
+          // Top level and subrouter are now two different levels.
+          // Each middleware will be queued at the appropriate level.
           const queue = [
+            ...arrUseTopLevel,
             ...arrUseAll,
             ...arrUseRoute,
             handlerQueue,
             ...arrAfterRoute,
             ...arrAfterAll,
+            ...arrAfterTopLevel,
           ].flat();
           queues[usedEndpoint][method] = queue;
         }
@@ -51,11 +62,18 @@ function _single(obj) {
 }
 
 export default function _queues(routes) {
+  const { use = {}, after = {} } = routes;
   const extended = {};
   const filtered = {};
   Object.keys(routes).forEach((route) => {
     if (routes[route].hasOwnProperty('extend')) {
-      extended[route] = routes[route];
+      // Passing use/after middlewares at top level
+      // we need Object diffing for pass two levels of middlewares.
+      extended[route] = {
+        useTopLevel: use,
+        afterTopLevel: after,
+        ...routes[route],
+      };
     } else {
       filtered[route] = routes[route];
     }

@@ -1,7 +1,18 @@
 const http = require('http');
 
-const cors = require('cors');
 const { Lieve, _express } = require('../dist/lieve');
+
+const topLevelMiddleware = (req, res) => {
+  const { next } = req;
+  console.log('working at top level');
+  next(req, res);
+};
+
+const underTopLevelMiddleware = (req, res) => {
+  const { next } = req;
+  console.log('working under top level');
+  next(req, res);
+};
 
 const middle = (req, res) => {
   const { next } = req;
@@ -23,6 +34,9 @@ const presaB = () => {
 
 const lol = {
   'extend': '/users',
+  'use': {
+    'under-top =>': underTopLevelMiddleware,
+  },
   '/': {
     'GET': last,
   },
@@ -39,7 +53,7 @@ const lol = {
     'GET': last,
     'POST': {
       'use': {
-        'cors': (req, res) => _express(req, res, cors),
+        // 'cors': (req, res) => _express(req, res, cors),
         'lol1': middle,
         'lol2': middle,
       },
@@ -69,7 +83,7 @@ const lollo = {
     'GET': last,
     'POST': {
       'use': {
-        'cors': (req, res) => _express(req, res, cors),
+        // 'cors': (req, res) => _express(req, res, cors),
         'lol1': middle,
         'lol2': middle,
       },
@@ -82,6 +96,9 @@ const lollo = {
 };
 
 const { router } = new Lieve({
+  'after': {
+    'top-level =>': topLevelMiddleware,
+  },
   '/': {
     'use': {
       // 'cors': (req, res) => _express(req, res, cors),
