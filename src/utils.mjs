@@ -73,7 +73,8 @@ function _send(content, type = 'text/plain', status = 200) {
 
 function _next(req, res) {
   this.index += 1;
-  return this.queue[this.index](req, res);
+  const func = this.queue[this.index];
+  if (func) func(req, res);
 }
 
 function _dummy(err) {

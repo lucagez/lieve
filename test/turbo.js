@@ -11,9 +11,10 @@ const middle = (req, res) => {
 };
 
 const last = (req, res) => {
-  const { params } = req;
-  // console.log(params);
+  const { params, next } = req;
+  console.log(params);
   res.send(JSON.stringify({ hello: 'world' }), 'application/json');
+  next(req, res);
 };
 
 const presaB = () => {
@@ -41,6 +42,9 @@ const lol = {
         'cors': (req, res) => _express(req, res, cors),
         'lol1': middle,
         'lol2': middle,
+      },
+      'after': {
+        'last': middle,
       },
       'handler': last
     },
