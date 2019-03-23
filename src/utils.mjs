@@ -67,7 +67,12 @@ function _send(content, type = 'text/plain', status = 200) {
   // this.setHeader('Content-Type', type);
 
   // use this for core `http`
-  this.writeHead(status, { 'Content-Type': type });
+  this.writeHead(status, {
+    'Content-Type': type,
+
+    // This ??? Not tested
+    // 'Content-Length': Buffer.from(content).length,
+  });
   this.end(content, false, false);
 }
 
