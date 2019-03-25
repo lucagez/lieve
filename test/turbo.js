@@ -1,5 +1,4 @@
 const http = require('http');
-
 const { Lieve, _express } = require('../dist/lieve');
 
 const topLevelMiddleware = (req, res) => {
@@ -100,18 +99,18 @@ const { router } = new Lieve({
     'top-level =>': topLevelMiddleware,
   },
   '/': {
-    'use': {
-      // 'cors': (req, res) => _express(req, res, cors),
-    },
-    'after': {
-      'presab': presaB,
-    },
+    // 'use': {
+    //   // 'cors': (req, res) => _express(req, res, cors),
+    // },
+    // 'after': {
+    //   'presab': presaB,
+    // },
     'GET': (req, res) => {
-      const { params, next } = req;
-      console.log(params);
+      // const { params, next } = req;
+      // console.log(params);
       // const [user, lol] = params;
-      res.send(JSON.stringify({ hello: 'world' }), 'application/json');
-      next(req);
+      res.send(JSON.stringify({ hello: 'world' }));
+      // next(req);
     },
   },
   '/users': lol,

@@ -4,5 +4,6 @@ module.exports = {
         "no-underscore-dangle": "off",
         "no-prototype-builtins": "off",
         "no-case-declarations": "off",
+        "strict": "off",
     }
 };

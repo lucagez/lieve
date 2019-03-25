@@ -16,6 +16,9 @@ export class Lieve {
     this.matchParams = new RegExp(/(?<=\/)\d+/g);
     // this.matchParams = new RegExp(/[0-9]+[^\/]?/g);
 
+    // Updated regex => match both `qs` and `params`
+    // this.matcher = new RegExp(/(?<=\/)\d+|\?.+/g);
+
     this.find = _find.bind(this);
     this.router = router.bind(this);
   }
