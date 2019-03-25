@@ -109,7 +109,7 @@ const { router } = new Lieve({
       // const { params, next } = req;
       // console.log(params);
       // const [user, lol] = params;
-      res.send(JSON.stringify({ hello: 'world' }));
+      res.send(Buffer.from(JSON.stringify({ hello: 'world' })));
       // next(req);
     },
   },
@@ -117,9 +117,7 @@ const { router } = new Lieve({
   '/walla': lollo,
 });
 
-const server = http.createServer();
+const server = http.createServer(router);
 
-server.on('request', router);
-
-server.listen(4003);
+server.listen(4003, () => console.log('listening on 4003'));
 

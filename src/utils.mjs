@@ -44,16 +44,6 @@ function _query(req, delimiter = '&') {
   return query;
 }
 
-function _list(routes) {
-  const pieces = Object.keys(routes)
-    .map(e => e.split('/').slice(1))
-    .flat()
-    .filter(e => e !== ':par');
-
-  // `.join()` => if using regex test in routes
-  return Array.from(new Set(pieces));
-}
-
 function _set(req, prop, value, writable = false) {
   Object.defineProperty(req, prop, {
     value,
@@ -69,11 +59,9 @@ function _send(content, type = 'text/plain', status = 200) {
   // use this for core `http`
   this.writeHead(status, {
     'Content-Type': type,
-
-    // This ??? Not tested
     // 'Content-Length': Buffer.from(content).length,
   });
-  this.end(content, false, false);
+  this.end(content, null, null);
 }
 
 function _next(req, res) {
@@ -100,6 +88,5 @@ export {
   _send,
   _set,
   _next,
-  _list,
   _express,
 };
