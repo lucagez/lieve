@@ -64,36 +64,6 @@ const lol = {
   }
 };
 
-const lollo = {
-  'extend': '/walla',
-  '/': {
-    'GET': last,
-  },
-  '/id': {
-    'GET': last,
-  },
-  '/id/:par': {
-    'GET': last,
-  },
-  '/lol': {
-    'use': {
-      'lol': middle
-    },
-    'GET': last,
-    'POST': {
-      'use': {
-        // 'cors': (req, res) => _express(req, res, cors),
-        'lol1': middle,
-        'lol2': middle,
-      },
-      'handler': middle,
-      'after': {
-        'presa': presaB,
-      }
-    },
-  }
-};
-
 const { router } = new Lieve({
   'after': {
     'top-level =>': topLevelMiddleware,
@@ -114,7 +84,6 @@ const { router } = new Lieve({
     },
   },
   '/users': lol,
-  '/walla': lollo,
 });
 
 const server = http.createServer(router);
