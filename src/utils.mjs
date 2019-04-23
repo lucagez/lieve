@@ -114,10 +114,19 @@ function _dummy(err) {
   return 0;
 }
 
-function _express(req, res, middleware, args = []) {
-  const { next } = req;
-  middleware(...args)(req, res, _dummy);
-  next(req, res);
+// OLD express compat func
+// function _express(req, res, middleware, args = []) {
+//   const { next } = req;
+//   middleware(...args)(req, res, _dummy);
+//   next(req, res);
+// }
+
+// New express compat func => way cleaner
+function _express(middleware) {
+  return (req, res) => {
+    middleware(req, res, _dummy);
+    req.next();
+  };
 }
 
 export {

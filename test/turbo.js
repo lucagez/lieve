@@ -1,5 +1,6 @@
-// const http = require('http');
-const http = require('turbo-http');
+const http = require('http');
+// const http = require('turbo-http');
+const cors = require('cors');
 const { Lieve, _express, _set } = require('../dist/lieve');
 
 const topLevelMiddleware = (req, res) => {
@@ -65,22 +66,22 @@ const lol = {
   }
 };
 
-const { router } = new Lieve('turbo', {
+const { router } = new Lieve('native', {
   'after': {
     'top-level =>': topLevelMiddleware,
   },
   '/': {
-    // 'use': {
-    //   // 'cors': (req, res) => _express(req, res, cors),
-    //   'lol': (req, res) => {
-    //     console.log('ciao');
-    //     req.next();
-    //   },
-    //   'bello': (req, res) => {
-    //     console.log('wao');
-    //     req.next();
-    //   }
-    // },
+    'use': {
+      'cors': _express(cors()),
+      // 'lol': (req, res) => {
+      //   console.log('ciao');
+      //   req.next();
+      // },
+      // 'bello': (req, res) => {
+      //   console.log('wao');
+      //   req.next();
+      // }
+    },
     // 'after': {
     //   'presab': presaB,
     // },

@@ -23,7 +23,6 @@ export class Lieve {
 }
 
 export {
-  _body,
   _cookie,
   _query,
   _set,
