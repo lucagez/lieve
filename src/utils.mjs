@@ -1,8 +1,10 @@
-function _body(req, type) {
+function _body(type) {
+  const ctx = this;
+
   return new Promise((resolve) => {
     const chunks = [];
-    req.on('data', chunk => chunks.push(chunk));
-    req.on('end', () => {
+    ctx.on('data', chunk => chunks.push(chunk));
+    ctx.on('end', () => {
       const body = Buffer.concat(chunks).toString();
       switch (type) {
         case 'x-www-form-urlencoded':
@@ -23,15 +25,17 @@ function _body(req, type) {
   });
 }
 
-function _turboBody(req, type) {
+function _turboBody(type) {
+  const ctx = this;
+
   return new Promise((resolve) => {
     const parts = [];
-    req.ondata = (buffer, start, length) => {
+    ctx.ondata = (buffer, start, length) => {
       const part = buffer.slice(start, length + start).toString();
       parts.push(part);
     };
 
-    req.onend = () => {
+    ctx.onend = () => {
       const body = parts.join('');
       switch (type) {
         case 'x-www-form-urlencoded':

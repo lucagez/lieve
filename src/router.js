@@ -23,7 +23,7 @@ export default function router(mode) {
       req.queue = queue;
       req.index = 0;
       req.next = _next.bind({ req, res });
-      // req.body = useBody;
+      req.body = useBody;
 
       queue[0](req, res);
     } else {

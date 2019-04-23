@@ -70,17 +70,17 @@ const { router } = new Lieve('turbo', {
     'top-level =>': topLevelMiddleware,
   },
   '/': {
-    'use': {
-      // 'cors': (req, res) => _express(req, res, cors),
-      'lol': (req, res) => {
-        console.log('ciao');
-        req.next();
-      },
-      'bello': (req, res) => {
-        console.log('wao');
-        req.next();
-      }
-    },
+    // 'use': {
+    //   // 'cors': (req, res) => _express(req, res, cors),
+    //   'lol': (req, res) => {
+    //     console.log('ciao');
+    //     req.next();
+    //   },
+    //   'bello': (req, res) => {
+    //     console.log('wao');
+    //     req.next();
+    //   }
+    // },
     // 'after': {
     //   'presab': presaB,
     // },
