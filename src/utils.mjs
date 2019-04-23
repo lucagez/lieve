@@ -23,6 +23,35 @@ function _body(req, type) {
   });
 }
 
+function _turboBody(req, type) {
+  return new Promise((resolve) => {
+    const parts = [];
+    req.ondata = (buffer, start, length) => {
+      const part = buffer.slice(start, length + start).toString();
+      parts.push(part);
+    };
+
+    req.onend = () => {
+      const body = parts.join('');
+      switch (type) {
+        case 'x-www-form-urlencoded':
+          const parsed = {};
+          body.split('&').forEach((e) => {
+            const [prop, value] = e.split('=');
+            parsed[prop] = value;
+          });
+          resolve(parsed);
+          break;
+        case 'binary':
+          resolve({ file: body });
+          break;
+        default:
+          resolve(body);
+      }
+    };
+  });
+}
+
 function _cookie(req) {
   const { cookie } = req.headers;
   if (!cookie) return {};
@@ -44,13 +73,9 @@ function _query(req, delimiter = '&') {
   return query;
 }
 
-function _set(req, prop, value, writable = false) {
-  if (!req.hasOwnProperty(prop)) {
-    Object.defineProperty(req, prop, {
-      value,
-      writable,
-    });
-  }
+function _set(req, prop, value) {
+  if (req.hasOwnProperty(prop)) throw new Error('Trying to override req property');
+  Object.defineProperty(req, prop, { value });
 }
 
 function _send(content, type = 'text/plain', status = 200) {
@@ -66,9 +91,17 @@ function _send(content, type = 'text/plain', status = 200) {
   this.end(content, null, null);
 }
 
-function _next(req, res) {
-  this.index += 1;
-  const func = this.queue[this.index];
+// `turbo-http` send
+function _turboSend(content, type = 'text/plain', status = 200) {
+  this.statusCode = status;
+  this.setHeader('Content-Type', type);
+  this.end(content, null, null);
+}
+
+function _next() {
+  const { req, res } = this;
+  req.index += 1;
+  const func = req.queue[req.index];
   if (func) func(req, res);
 }
 
@@ -85,9 +118,11 @@ function _express(req, res, middleware, args = []) {
 
 export {
   _body,
+  _turboBody,
   _cookie,
   _query,
   _send,
+  _turboSend,
   _set,
   _next,
   _express,

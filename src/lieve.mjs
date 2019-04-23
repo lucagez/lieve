@@ -3,7 +3,7 @@ import _queues from './queues';
 import _find from './find';
 
 export class Lieve {
-  constructor(routes) {
+  constructor(mode, routes) {
     this.routes = routes;
     this.queues = _queues(routes);
 
@@ -18,7 +18,7 @@ export class Lieve {
     // this.matcher = new RegExp(/(?<=\/)\d+|\?.+/g);
 
     this.find = _find.bind(this);
-    this.router = router.bind(this);
+    this.router = router(mode).bind(this);
   }
 }
 

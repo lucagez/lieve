@@ -8,7 +8,8 @@
     "eslint-plugin-import": "^2.16.0",
     "gc-profiler": "^1.4.0",
     "microbundle": "^0.11.0",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "turbo-http": "^0.3.2"
   },
   "scripts": {
     "build": "microbundle src/lieve.mjs",
