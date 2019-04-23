@@ -45,10 +45,12 @@ function _query(req, delimiter = '&') {
 }
 
 function _set(req, prop, value, writable = false) {
-  Object.defineProperty(req, prop, {
-    value,
-    writable,
-  });
+  if (!req.hasOwnProperty(prop)) {
+    Object.defineProperty(req, prop, {
+      value,
+      writable,
+    });
+  }
 }
 
 function _send(content, type = 'text/plain', status = 200) {
