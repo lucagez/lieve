@@ -7,6 +7,8 @@ import _buildDefaultConfig from './_defaultConfig';
 
 class Lieve {
   constructor(config = {}) {
+    if (config && typeof config !== 'object') throw new TypeError('Config must be of type object');
+
     this.routes = new Map();
     this.asRegistered = [];
     this.middlewares = [];
@@ -18,6 +20,7 @@ class Lieve {
 
     // Adding all supported methods
     // => calling router.[method] instead of .on([method])
+    // => mostly for saving horizontal space
     METHODS.forEach((method) => {
       this[method] = _on(method).bind(this);
     });

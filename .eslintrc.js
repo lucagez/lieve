@@ -6,6 +6,13 @@ module.exports = {
         "no-case-declarations": "off",
         "no-plusplus": "off",
         "consistent-return": "off",
+        "no-unused-expressions": "off",
+        "quote-props": "off",
         "strict": "off",
+    },
+    "globals": {
+        "describe": true,
+        "it": true,
+        "before": true
     }
 };

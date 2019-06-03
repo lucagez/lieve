@@ -48,4 +48,5 @@ const find = (lookup, queryDelimiter) => {
     return { path, params, query };
   };
 };
+
 export default find;
