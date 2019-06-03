@@ -10,7 +10,8 @@ function start() {
   // with one of the registered pieces or with :par.
   // NOTE: an empty string '' is added to the lookup object on purpose because, when splitting
   // a url string, the first item of the resulting array will always be an empty string.
-  // Not including it will result in an unwanted :par added at the beginning of the resulting string.
+  // Not including it will result in an unwanted :par added at the beginning
+  // of the resulting string.
   this.lookup = new Set(
     [
       ...this.asRegistered
@@ -33,7 +34,6 @@ function start() {
   this.routes.forEach((actual, route) => {
     const newQueue = {};
     Object.keys(actual).forEach((method) => {
-      console.log(actual[method]);
       newQueue[method] = [
         ...this.middlewares,
         ...actual[method],
@@ -61,7 +61,7 @@ function start() {
 
     // Creating the queue and the generator containing every middleware.
     // When starting the first function in the queue will be invoked.
-    next(queue, this.errMiddlewares, req, res)();
+    return next(queue, this.errMiddlewares, req, res)();
   };
 }
 
