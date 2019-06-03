@@ -1,6 +1,5 @@
 // SUPER FASTER
 const find = (lookup, queryDelimiter) => {
-  const hasQuery = new RegExp(`\\${queryDelimiter}`);
   const matchQuery = new RegExp(`\\${queryDelimiter}(.*)`);
 
   return (url) => {
@@ -19,7 +18,7 @@ const find = (lookup, queryDelimiter) => {
     // that the url is carrying query string parameter.
     // So, we need to destroy them to process against the Set storing all
     // the available endpoint pieces.
-    if (hasQuery.test(url)) {
+    if (url.indexOf(queryDelimiter) > -1) {
       pieces[slast] = pieces[slast].replace(matchQuery, (match) => {
         // Deleting delimiter  from query string
         query = match.substr(1);
@@ -32,7 +31,7 @@ const find = (lookup, queryDelimiter) => {
       const piece = pieces[i];
       // Here is the power of the Set for storing pieces.
       // .has takes O(1) time, while a search in an array would take O(n).
-      if (lookup.has(piece)) path += piece;
+      if (lookup.has(piece) !== false) path += piece;
       else {
         // Everything that is not recognised will be called :par and returned in an array.
         // This is convenient as the order of insertion will be equal as in the endpoint

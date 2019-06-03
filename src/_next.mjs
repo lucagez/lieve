@@ -18,7 +18,7 @@ const next = (queue, errQueue, req, res) => {
     // => init counter to 0 again
     // => set `usedQueue` to errQueue
     // => continue flow as usual
-    if (err) {
+    if (err !== undefined) {
       usedQueue = errQueue;
       current = 0;
 

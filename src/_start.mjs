@@ -54,14 +54,14 @@ function start() {
     // for just one endpoint
     const queue = endpoint[method];
 
-    if (!queue) return sendNotFound(res, this.notFound);
+    if (typeof queue !== 'undefined') return sendNotFound(res, this.notFound);
 
     req.params = params;
     req.query = query;
 
     // Creating the queue and the generator containing every middleware.
     // When starting the first function in the queue will be invoked.
-    return next(queue, this.errMiddlewares, req, res)();
+    next(queue, this.errMiddlewares, req, res)();
   };
 }
 
