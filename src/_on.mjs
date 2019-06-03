@@ -3,6 +3,7 @@ import { deSlash, arrayIsMadeOfFuncs } from './_utils';
 function on(method) {
   return function onScoped(endpoint, middlewares, handler) {
     // error handling
+    if (typeof endpoint !== 'string') throw new TypeError('Endpoint must be a string');
     if (typeof handler !== 'function') throw new TypeError('Handler must be a function');
     if (!Array.isArray(middlewares)) throw new TypeError('Middlewares must be an array');
     if (middlewares.length > 0 && arrayIsMadeOfFuncs(middlewares)) throw new TypeError('Every middleware should be a function');
