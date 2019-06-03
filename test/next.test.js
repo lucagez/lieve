@@ -9,6 +9,10 @@ const queue = [
   () => 'third',
 ];
 
+const errQueue = [
+  err => err,
+];
+
 const returnRR = [
   (req, res) => ({ req, res }),
 ];
@@ -17,7 +21,7 @@ const returnNext = [
   (req, res, next) => next,
 ];
 
-describe('Next middleware behavior', () => {
+describe('Unit testing Next middleware behavior', () => {
   it('Should return a function when initialized', () => {
     const next = _next([], [], 1, 2);
     expect(next).to.be.a('function');
@@ -61,5 +65,11 @@ describe('Next middleware behavior', () => {
     const next = _next(returnNext, [], 1, 2);
     const N = next();
     expect(N).to.be.a('function');
+  });
+
+  it('Should invoke err handlers queue when next is invoked with an argument', () => {
+    const next = _next(queue, errQueue, 1, 2);
+    expect(next()).to.be.equal('first');
+    expect(next('error')).to.be.equal('error');
   });
 });
