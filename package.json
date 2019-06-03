@@ -3,16 +3,16 @@
   "version": "0.4.3",
   "main": "dist/lieve.js",
   "devDependencies": {
-    "eslint": "^5.15.3",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-import": "^2.17.3",
     "microbundle": "^0.11.0",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.19.1"
   },
   "scripts": {
-    "build": "rm -rf dist && microbundle src/lieve.mjs --no-sourcemap",
+    "build": "rm -rf dist && microbundle  --external http src/lieve.mjs --no-sourcemap",
     "build:dev": "microbundle watch --external http src/lieve.mjs",
-    "dev": "npm run build:dev & nodemon server.js",
+    "dev": "npm run build:dev & nodemon test/server.js",
     "lint": "eslint src/*.mjs",
     "lint:fix": "eslint --fix src/*.mjs test/*.js"
   }

@@ -12,14 +12,12 @@ function start() {
   // a url string, the first item of the resulting array will always be an empty string.
   // Not including it will result in an unwanted :par added at the beginning
   // of the resulting string.
-  this.lookup = new Set(
-    [
-      ...this.asRegistered
-        .map(route => route.split('/'))
-        .flat(),
-      '',
-    ],
-  );
+  this.lookup = [
+    ...this.asRegistered
+      .map(route => route.split('/'))
+      .flat(),
+    '',
+  ].reduce((obj, key) => ({ ...obj, [key]: 0 }), {});
 
   this.find = _find(this.lookup, this.queryDelimiter);
 
@@ -54,7 +52,7 @@ function start() {
     // for just one endpoint
     const queue = endpoint[method];
 
-    if (typeof queue !== 'undefined') return sendNotFound(res, this.notFound);
+    if (typeof queue !== 'object') return sendNotFound(res, this.notFound);
 
     req.params = params;
     req.query = query;

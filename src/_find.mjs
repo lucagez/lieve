@@ -11,14 +11,12 @@ const find = (lookup, queryDelimiter) => {
     // Process url pieces
     const pieces = url.split('/');
 
-    const last = pieces.length;
-    const slast = last - 1;
-
     // If a question mark is found inside the url it means
     // that the url is carrying query string parameter.
     // So, we need to destroy them to process against the Set storing all
     // the available endpoint pieces.
     if (url.indexOf(queryDelimiter) > -1) {
+      const slast = pieces.length - 1;
       pieces[slast] = pieces[slast].replace(matchQuery, (match) => {
         // Deleting delimiter  from query string
         query = match.substr(1);
@@ -27,11 +25,15 @@ const find = (lookup, queryDelimiter) => {
     }
 
     // Ugly for-loop but **WAY** faster than a more shiny .map
+    const last = pieces.length;
     for (let i = 0; i < last; i++) {
       const piece = pieces[i];
       // Here is the power of the Set for storing pieces.
       // .has takes O(1) time, while a search in an array would take O(n).
-      if (lookup.has(piece) !== false) path += piece;
+
+      // NOTE: it turn out that checking if a Set `has` an item is 10x slower
+      // than checking existence from a regular object.
+      if (typeof lookup[piece] !== 'undefined') path += piece;
       else {
         // Everything that is not recognised will be called :par and returned in an array.
         // This is convenient as the order of insertion will be equal as in the endpoint
