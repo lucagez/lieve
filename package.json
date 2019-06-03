@@ -3,20 +3,17 @@
   "version": "0.4.3",
   "main": "dist/lieve.js",
   "devDependencies": {
-    "cors": "^2.8.5",
     "eslint": "^5.15.3",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
-    "gc-profiler": "^1.4.0",
     "microbundle": "^0.11.0",
-    "nodemon": "^1.18.10",
-    "turbo-http": "^0.3.2"
+    "nodemon": "^1.18.10"
   },
   "scripts": {
-    "build": "microbundle src/lieve.mjs",
-    "build:dev": "microbundle src/lieve.mjs -w",
-    "dev": "npm run build:dev & nodemon test/turbo.js",
+    "build": "rm -rf dist && microbundle src/lieve.mjs --no-sourcemap",
+    "build:dev": "microbundle watch --external http src/lieve.mjs",
+    "dev": "npm run build:dev & nodemon server.js",
     "lint": "eslint src/*.mjs",
-    "lint-fix": "eslint --fix src/*.mjs test/*.js"
+    "lint:fix": "eslint --fix src/*.mjs test/*.js"
   }
 }

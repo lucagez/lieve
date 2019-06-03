@@ -1,30 +1,32 @@
-import router from './router';
-import _queues from './queues';
-import _find from './find';
+import { METHODS } from 'http';
+import _on from './_on';
+import _redirect from './_redirect';
+import _use from './_use';
+import _start from './_start';
+import _buildDefaultConfig from './_defaultConfig';
 
-export class Lieve {
-  constructor(mode, routes) {
-    this.routes = routes;
-    this.queues = _queues(routes);
+class Lieve {
+  constructor(config = {}) {
+    this.routes = new Map();
+    this.asRegistered = [];
+    this.middlewares = [];
+    this.errMiddlewares = [];
+    this.lookup = null;
+    this.find = null;
 
-    this.matchUrl = new RegExp(/\/$|\?(.*)/);
+    _buildDefaultConfig.bind(this)(config);
 
-    // Updated regex => avoid matching eg: `v1` as param.
-    // Matches only numeric params. Both: `/xxx/` and `/xxx`
-    this.matchParams = new RegExp(/(?<=\/)\d+/g);
-    // this.matchParams = new RegExp(/[0-9]+[^\/]?/g);
+    // Adding all supported methods
+    // => calling router.[method] instead of .on([method])
+    METHODS.forEach((method) => {
+      this[method] = _on(method).bind(this);
+    });
 
-    // Updated regex => match both `qs` and `params`
-    // this.matcher = new RegExp(/(?<=\/)\d+|\?.+/g);
-
-    this.find = _find.bind(this);
-    this.router = router(mode).bind(this);
+    this.redirect = _redirect.bind(this);
+    this.use = _use('middlewares').bind(this);
+    this.err = _use('errMiddlewares').bind(this);
+    this.start = _start.bind(this);
   }
 }
 
-export {
-  _cookie,
-  _query,
-  _set,
-  _express,
-} from './utils';
+export default Lieve;
