@@ -3,6 +3,7 @@
   "version": "0.4.3",
   "main": "dist/lieve.js",
   "devDependencies": {
+    "@hapi/shot": "^4.1.0",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
