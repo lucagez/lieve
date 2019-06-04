@@ -35,9 +35,9 @@ const headers = {
 // router.use(cors());
 
 router.GET('/pino/:par', [testMiddle], (req, res) => res.end('Hello'));
-router.GET('/', [], async (req, res) => {
+router.GET('/', [], function (req, res) {
   res.setHeader('content-type', 'application/json; charset=utf-8');
-  res.end(stringify({ hello: 'world' }), null, null);
+  res.end(JSON.stringify({ hello: 'world' }), null, null);
 });
 // router.GET('/', [], (req, res) => res.end('Hi'));
 
