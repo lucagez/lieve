@@ -5,6 +5,11 @@ const http = require('http');
 const Lieve = require('../dist/lieve');
 // const url = require('url');
 // console.log(Lieve);
+const { sjs } = require('slow-json-stringify');
+
+const stringify = sjs({
+  hello: 'string',
+});
 
 const testMiddle = (req, res, next) => {
   console.log('skere');
@@ -30,16 +35,13 @@ const headers = {
 // router.use(cors());
 
 router.GET('/pino/:par', [testMiddle], (req, res) => res.end('Hello'));
-router.GET('/skere/pino/liegi/:par', [], async (req, res) => {
-  // res.writeHead(200, headers);
-  // const [lol] = req.params;
-  // console.log(lol, req.query);
-  // console.log(url.parse(req.url));
-  res.end('hello', null, null);
+router.GET('/', [], async (req, res) => {
+  res.setHeader('content-type', 'application/json; charset=utf-8');
+  res.end(stringify({ hello: 'world' }), null, null);
 });
-router.GET('/', [], (req, res) => res.end('Hi'));
+// router.GET('/', [], (req, res) => res.end('Hi'));
 
-console.log(router.printr());
+// console.log(router.printr());
 
 const server = http.createServer(router.start());
 // const server = http.createServer((req, res) => res.end('hello'));

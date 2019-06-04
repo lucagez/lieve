@@ -4,6 +4,8 @@
   "main": "dist/lieve.js",
   "devDependencies": {
     "@hapi/shot": "^4.1.0",
+    "autocannon": "^4.0.0",
+    "benchmark": "^2.1.4",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -11,7 +13,8 @@
     "esm": "^3.2.25",
     "microbundle": "^0.11.0",
     "mocha": "^6.1.4",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "slow-json-stringify": "^0.2.1"
   },
   "scripts": {
     "build": "rm -rf dist && microbundle  --external http src/lieve.mjs --no-sourcemap",
