@@ -39,7 +39,7 @@ router.GET('/skere/pino/liegi/:par', [], async (req, res) => {
 });
 router.GET('/', [], (req, res) => res.end('Hi'));
 
-console.log(router);
+console.log(router.printr());
 
 const server = http.createServer(router.start());
 // const server = http.createServer((req, res) => res.end('hello'));

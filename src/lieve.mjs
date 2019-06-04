@@ -4,6 +4,7 @@ import _redirect from './_redirect';
 import _use from './_use';
 import _start from './_start';
 import _buildDefaultConfig from './_defaultConfig';
+import _printr from './_printr';
 
 class Lieve {
   constructor(config = {}) {
@@ -25,6 +26,7 @@ class Lieve {
       this[method] = _on(method).bind(this);
     });
 
+    this.printr = _printr.bind(this);
     this.redirect = _redirect.bind(this);
     this.use = _use('middlewares').bind(this);
     this.err = _use('errMiddlewares').bind(this);

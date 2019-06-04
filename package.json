@@ -16,7 +16,7 @@
   "scripts": {
     "build": "rm -rf dist && microbundle  --external http src/lieve.mjs --no-sourcemap",
     "build:dev": "microbundle watch --external http src/lieve.mjs",
-    "dev": "npm run build:dev & nodemon test/server.js",
+    "dev": "npm run build:dev & nodemon scratchpad/server.js",
     "lint": "eslint src/*.mjs",
     "lint:fix": "eslint --fix src/*.mjs",
     "test": "rm -rf dist && npm run build && mocha"
