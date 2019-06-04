@@ -1,6 +1,11 @@
 src/
 test/
+scratchpad/
+benchmark/
 package.json
 package-lock.json
 .gitignore
 .vscode/
+logo.svg
+messages-for-my-future-self.md
+README.md

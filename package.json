@@ -1,6 +1,6 @@
 {
   "name": "lieve",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "main": "dist/lieve.js",
   "devDependencies": {
     "@hapi/shot": "^4.1.0",
