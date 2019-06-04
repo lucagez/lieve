@@ -27,9 +27,9 @@ function printr() {
         .filter(Boolean),
     }))
     .filter(method => method.paths.length > 0)
-    .reduce((obj, method) => ({
+    .reduce((obj, { method, paths }) => ({
       ...obj,
-      [method.method]: method.paths,
+      [method]: paths,
     }), {});
 
   return {
