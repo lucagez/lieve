@@ -1,5 +1,5 @@
-<p align="center" height="200px">
-  <img src="lieve.svg" alt="lieve" />
+<p align="center">
+  <img src="lieve.svg" height="200px" alt="lieve" />
 </p>
 
 # Lieve
