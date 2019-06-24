@@ -1,5 +1,5 @@
 /**
- * Comparisons with other Node.js frameworks.
+ * Naive tests
  */
 
 const { execSync } = require('child_process');

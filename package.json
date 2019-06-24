@@ -16,8 +16,8 @@
     "nodemon": "^1.19.1"
   },
   "scripts": {
-    "lint": "eslint src/*.mjs",
-    "lint:fix": "eslint --fix src/*.mjs",
+    "lint": "eslint src/*.js",
+    "lint:fix": "eslint --fix src/*.js",
     "test": "mocha"
   },
   "dependencies": {
