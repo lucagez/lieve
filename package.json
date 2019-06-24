@@ -1,7 +1,7 @@
 {
   "name": "lieve",
-  "version": "0.5.0",
-  "main": "dist/lieve.js",
+  "version": "0.5.1",
+  "main": "src/lieve.js",
   "devDependencies": {
     "@hapi/shot": "^4.1.0",
     "autocannon": "^4.0.0",
@@ -10,7 +10,6 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
-    "esm": "^3.2.25",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.1",
     "slow-json-stringify": "^0.2.1"
