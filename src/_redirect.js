@@ -1,4 +1,4 @@
-import { deSlash } from './_utils';
+const { deSlash } = require('./_utils');
 
 function redirect(arg, router) {
   // case string => route extension
@@ -37,4 +37,4 @@ function redirect(arg, router) {
   ];
 }
 
-export default redirect;
+module.exports = redirect;

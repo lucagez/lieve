@@ -12,7 +12,7 @@ const arrayIsMadeOfFuncs = arr => arr
   .filter(e => typeof e !== 'function')
   .length > 0;
 
-export {
+module.exports = {
   deSlash,
   sendNotFound,
   arrayIsMadeOfFuncs,

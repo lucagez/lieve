@@ -1,6 +1,6 @@
-import _find from './_find';
-import next from './_next';
-import { sendNotFound } from './_utils';
+const _find = require('./_find');
+const next = require('./_next');
+const { sendNotFound } = require('./_utils');
 
 function start() {
   // Setting up lookup before initializing.
@@ -44,7 +44,13 @@ function start() {
 
   return (req, res) => {
     const { url, method } = req;
+    // const url = req.url;
+    // const method = req.method;
     const { path, params, query } = this.find(url);
+    // const found = this.find(url);
+    // const path = found.path;
+    // const params = found.params;
+    // const query = found.query;
 
     const endpoint = this.routes.get(path) || {};
 
@@ -63,4 +69,4 @@ function start() {
   };
 }
 
-export default start;
+module.exports = start;

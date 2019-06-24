@@ -2,8 +2,8 @@
  * Utility that print registered routes
  */
 
-import { METHODS } from 'http';
-import { deSlash } from './_utils';
+const { METHODS } = require('http');
+const { deSlash } = require('./_utils');
 
 function printr() {
   // Defaults to alfabetical order
@@ -39,4 +39,4 @@ function printr() {
   };
 }
 
-export default printr;
+module.exports = printr;

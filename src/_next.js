@@ -31,4 +31,4 @@ const next = (queue, errQueue, req, res) => {
   };
 };
 
-export default next;
+module.exports = next;

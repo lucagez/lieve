@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const Lieve = require('../dist/lieve');
+const Lieve = require('../src/lieve');
 
 describe('Router redirects another router instance', () => {
   const router = new Lieve();

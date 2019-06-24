@@ -49,4 +49,4 @@ const find = (lookup, queryDelimiter) => {
   };
 };
 
-export default find;
+module.exports = find;

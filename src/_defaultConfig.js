@@ -12,4 +12,4 @@ function buildDefaultConfig(config) {
   });
 }
 
-export default buildDefaultConfig;
+module.exports = buildDefaultConfig;

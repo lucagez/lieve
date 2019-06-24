@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const { METHODS } = require('http');
-const Lieve = require('../dist/lieve');
+const Lieve = require('../src/lieve');
 
 describe('Ensures that lieve setup is correct', () => {
   let router;

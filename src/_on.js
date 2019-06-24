@@ -1,4 +1,4 @@
-import { deSlash, arrayIsMadeOfFuncs } from './_utils';
+const { deSlash, arrayIsMadeOfFuncs } = require('./_utils');
 
 function on(method) {
   return function onScoped(endpoint, middlewares, handler) {
@@ -27,4 +27,4 @@ function on(method) {
   };
 }
 
-export default on;
+module.exports = on;

@@ -1,7 +1,6 @@
 const { expect } = require('chai');
-const esm = require('esm')({});
 
-const { default: _next } = esm(`${__dirname}/../src/_next`);
+const _next = require('../src/_next');
 
 const queue = [
   () => 'first',

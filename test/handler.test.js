@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const shot = require('@hapi/shot');
-const Lieve = require('../dist/lieve');
+const Lieve = require('../src/lieve');
 
 describe('Handler tests', () => {
   const router = new Lieve();

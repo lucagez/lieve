@@ -1,10 +1,10 @@
-import { METHODS } from 'http';
-import _on from './_on';
-import _redirect from './_redirect';
-import _use from './_use';
-import _start from './_start';
-import _buildDefaultConfig from './_defaultConfig';
-import _printr from './_printr';
+const { METHODS } = require('http');
+const _on = require('./_on');
+const _redirect = require('./_redirect');
+const _use = require('./_use');
+const _start = require('./_start');
+const _buildDefaultConfig = require('./_defaultConfig');
+const _printr = require('./_printr');
 
 class Lieve {
   constructor(config = {}) {
@@ -34,4 +34,4 @@ class Lieve {
   }
 }
 
-export default Lieve;
+module.exports = Lieve;

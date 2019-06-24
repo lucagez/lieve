@@ -12,4 +12,4 @@ function use(type) {
   };
 }
 
-export default use;
+module.exports = use;

@@ -1,7 +1,6 @@
 const { expect } = require('chai');
-const esm = require('esm')({});
 
-const { default: _find } = esm(`${__dirname}/../src/_find`);
+const _find = require('../src/_find');
 
 const testLookup = {
   'hello': 0,

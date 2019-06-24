@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const Lieve = require('../dist/lieve');
+const Lieve = require('../src/lieve');
 
 /**
  * The fat that on return a lieve ethod for each http method
