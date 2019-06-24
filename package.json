@@ -16,7 +16,6 @@
     "nodemon": "^1.19.1"
   },
   "scripts": {
-    "scratch": "npm run build:dev & nodemon scratchpad/server.js",
     "lint": "eslint src/*.mjs",
     "lint:fix": "eslint --fix src/*.mjs",
     "test": "mocha"
