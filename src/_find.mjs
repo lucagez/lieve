@@ -13,7 +13,7 @@ const find = (lookup, queryDelimiter) => {
 
     // If a question mark is found inside the url it means
     // that the url is carrying query string parameter.
-    // So, we need to destroy them to process against the Set storing all
+    // So, we need to destroy them to process against the hashtable storing all
     // the available endpoint pieces.
     if (url.indexOf(queryDelimiter) > -1) {
       const slast = pieces.length - 1;
