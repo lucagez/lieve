@@ -2,7 +2,7 @@ const defaultConfig = {
   queryDelimiter: '?',
   notFound: {
     message: 'Not Found',
-    type: 'text/plain',
+    type: 'text/plain; charset=utf-8',
   },
 };
 
