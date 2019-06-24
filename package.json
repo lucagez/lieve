@@ -11,8 +11,7 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
     "mocha": "^6.1.4",
-    "nodemon": "^1.19.1",
-    "slow-json-stringify": "^0.2.1"
+    "nodemon": "^1.19.1"
   },
   "scripts": {
     "scratch": "npm run build:dev & nodemon scratchpad/server.js",
