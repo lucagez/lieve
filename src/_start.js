@@ -44,13 +44,7 @@ function start() {
 
   return (req, res) => {
     const { url, method } = req;
-    // const url = req.url;
-    // const method = req.method;
     const { path, params, query } = this.find(url);
-    // const found = this.find(url);
-    // const path = found.path;
-    // const params = found.params;
-    // const query = found.query;
 
     const endpoint = this.routes.get(path) || {};
 
