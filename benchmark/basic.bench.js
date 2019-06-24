@@ -4,7 +4,7 @@
 
 const autocannon = require('autocannon');
 const http = require('http');
-const Lieve = require('../dist/lieve');
+const Lieve = require('../src/lieve');
 
 const { log } = console;
 

@@ -42,7 +42,7 @@ function start() {
     this.routes.set(route, newQueue);
   });
 
-  return (req, res) => {
+  return async (req, res) => {
     const { url, method } = req;
     const { path, params, query } = this.find(url);
 
