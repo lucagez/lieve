@@ -4,7 +4,7 @@ const config = {
   url: 'http://localhost:3000',
   connections: 50,
   pipelining: 10,
-  duration: 10,
+  duration: 30,
 };
 
 // const bombarder = async () => ({

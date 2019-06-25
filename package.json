@@ -10,8 +10,6 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
-    "express": "^4.17.1",
-    "fastify": "^2.5.0",
     "mocha": "^6.1.4",
     "nodemon": "^1.19.1"
   },
@@ -19,8 +17,5 @@
     "lint": "eslint src/*.js",
     "lint:fix": "eslint --fix src/*.js",
     "test": "mocha"
-  },
-  "dependencies": {
-    "remove": "^0.1.5"
   }
 }

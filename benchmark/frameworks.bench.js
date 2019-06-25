@@ -24,4 +24,4 @@ for (const file of files) {
   log(str.substr(0, str.length - 1));
 }
 
-execSync('npm install remove express fastify', { stdio: 'pipe' });
+execSync('npm remove express fastify', { stdio: 'pipe' });
