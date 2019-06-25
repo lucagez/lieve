@@ -43,23 +43,26 @@ function start() {
   });
 
   return async (req, res) => {
-    const { url, method } = req;
-    const { path, params, query } = this.find(url);
+    try {
+      const { url, method } = req;
+      const { path, params, query } = this.find(url);
 
-    const endpoint = this.routes.get(path) || {};
+      const endpoint = this.routes.get(path);
 
-    // composing the global middlewares with the middlewares defined
-    // for just one endpoint
-    const queue = endpoint[method];
+      // composing the global middlewares with the middlewares defined
+      // for just one endpoint
+      const queue = endpoint[method];
 
-    if (typeof queue !== 'object') return sendNotFound(res, this.notFound);
 
-    req.params = params;
-    req.query = query;
+      req.params = params;
+      req.query = query;
 
-    // Creating the queue and the generator containing every middleware.
-    // When starting the first function in the queue will be invoked.
-    next(queue, this.errMiddlewares, req, res)();
+      // Creating the queue and the generator containing every middleware.
+      // When starting the first function in the queue will be invoked.
+      next(queue, this.errMiddlewares, req, res)();
+    } catch (err) {
+      sendNotFound(res, this.notFound);
+    }
   };
 }
 

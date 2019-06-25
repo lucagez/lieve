@@ -6,9 +6,9 @@ const { execSync } = require('child_process');
 
 const files = [
   'fastify',
-  'express',
-  'bare',
   'lieve',
+  // 'express',
+  // 'bare',
 ];
 
 const { log } = console;
