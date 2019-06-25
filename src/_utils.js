@@ -2,9 +2,8 @@ const deSlash = str => str.replace(/\//g, '');
 
 const sendNotFound = (res, messageObj) => {
   const { type, message } = messageObj;
-  res.writeHead(404, {
-    'Content-Type': type,
-  });
+  res.statusCode = 404;
+  res.setHeader('Content-Type', type);
   res.end(message);
 };
 
