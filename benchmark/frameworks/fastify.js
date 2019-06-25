@@ -9,9 +9,8 @@ fastify.get('/', function (req, reply) {
 });
 
 fastify.listen(3000, async () => {
-  const result = await bombarder();
+  const result = await bombarder(5);
 
-  log(`fastify: ${result.requests.average} req/s`);
-
+  log(`fastify: ${result} req/s`);
   process.exit(0);
 });

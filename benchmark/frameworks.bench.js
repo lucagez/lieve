@@ -5,8 +5,8 @@
 const { execSync } = require('child_process');
 
 const files = [
-  'fastify',
   'lieve',
+  'fastify',
   // 'express',
   // 'bare',
 ];

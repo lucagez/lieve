@@ -4,7 +4,7 @@ const config = {
   url: 'http://localhost:3000',
   connections: 50,
   pipelining: 10,
-  duration: 20,
+  duration: 10,
 };
 
 // const bombarder = async () => ({
@@ -16,12 +16,13 @@ const config = {
 //   'long route with param': await autocannon(config('/this/1234/a/longer/1234/route?ciao=mondo')),
 // });
 
-const bombarder = async () => {
-  // WARMING
-  await autocannon(config);
-
-  // Result after warm up
-  return autocannon(config);
+const bombarder = async (n) => {
+  let total = 0;
+  for (let i = 0; i < n; ++i) {
+    const temp = await autocannon(config);
+    total += temp.requests.average;
+  }
+  return total / n;
 };
 
 module.exports = bombarder;

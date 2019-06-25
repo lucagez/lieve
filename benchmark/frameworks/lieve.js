@@ -14,9 +14,8 @@ router.GET('/', [], function (req, res) {
 const server = http.createServer(router.start());
 
 server.listen(3000, async () => {
-  const result = await bombarder();
-
-  log(`lieve: ${result.requests.average} req/s`);
-
+  const result = await bombarder(5);
+  
+  log(`lieve: ${result} req/s`);
   process.exit(0);
 });
