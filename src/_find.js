@@ -19,7 +19,7 @@ const find = (lookup, queryDelimiter) => {
       const slast = pieces.length - 1;
       pieces[slast] = pieces[slast].replace(matchQuery, (match) => {
         // Deleting delimiter  from query string
-        query = match.substr(1);
+        query = match.slice(1);
         return '';
       });
     }
