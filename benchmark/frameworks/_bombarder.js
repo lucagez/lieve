@@ -2,8 +2,8 @@ const autocannon = require('autocannon');
 
 const config = {
   url: 'http://localhost:3000',
-  connections: 50,
-  pipelining: 10,
+  connections: 500,
+  pipelining: 50,
   duration: 10,
 };
 
@@ -17,12 +17,12 @@ const config = {
 // });
 
 const bombarder = async (n) => {
-  let total = 0;
+  let result = 0;
   for (let i = 0; i < n; ++i) {
     const temp = await autocannon(config);
-    total += temp.requests.average;
+    result = temp.requests.average;
   }
-  return total / n;
+  return result;
 };
 
 module.exports = bombarder;

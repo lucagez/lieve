@@ -5,10 +5,10 @@
 const { execSync } = require('child_process');
 
 const files = [
-  'lieve',
   'fastify',
-  // 'express',
-  // 'bare',
+  'lieve',
+  'express',
+  'bare',
 ];
 
 const { log } = console;

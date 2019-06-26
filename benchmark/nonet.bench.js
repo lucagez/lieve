@@ -21,7 +21,7 @@ suite
   .add('Lieve', {
     defer: true,
     fn: async (deferred) => {
-      await shot(handler, { method: 'get', url: '/' });
+      await shot.inject(handler, { method: 'get', url: '/' });
       deferred.resolve();
     }
   })
