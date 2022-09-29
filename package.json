@@ -3,7 +3,7 @@
   "version": "0.5.1",
   "main": "src/lieve.js",
   "devDependencies": {
-    "@hapi/shot": "^4.1.0",
+    "@hapi/shot": "^4.1.2",
     "autocannon": "^4.0.0",
     "benchmark": "^2.1.4",
     "chai": "^4.2.0",
